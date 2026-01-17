@@ -17,6 +17,44 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DJANGO_LOG_LEVEL = os.getenv("DJANGO_LOG_LEVEL", "INFO").upper()
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+
+    "formatters": {
+        "plain": {
+            "format": "%(message)s",
+        },
+    },
+
+    "handlers": {
+        "console": {
+            "level": DJANGO_LOG_LEVEL,
+            "formatter": "plain",
+
+            # Use a factory callable so we can inject the shared console
+            "()": "{{cookiecutter.project_slug}}.rich_logging.make_rich_console_handler",
+            "rich_tracebacks": True,
+            "tracebacks_show_locals": False,
+            "markup": True,
+            "show_time": False,
+            "show_level": True,
+            "show_path": False,
+        },
+    },
+
+    "root": {
+        "handlers": ["console"],
+        "level": DJANGO_LOG_LEVEL,
+    },
+
+    "loggers": {
+        "django": {"handlers": ["console"], "level": DJANGO_LOG_LEVEL, "propagate": False},
+        "django.db.backends": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+    },
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
