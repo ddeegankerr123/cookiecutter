@@ -8,7 +8,7 @@ export default function Sidebar() {
   return (
     <aside className={`sidebar ${collapsed ? "is-collapsed" : ""}`}>
       <div className="sidebar-top">
-        <div className="brand">{collapsed ? "SRT" : "SRT Engine"}</div>
+        <div className="brand">{collapsed ? "{{ cookiecutter.project_name }}" : "{{ cookiecutter.project_name }}"}</div>
         <button
           className="collapse-btn"
           onClick={() => setCollapsed(!collapsed)}
@@ -29,7 +29,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-footer">
-        {collapsed ? "v0.1" : "SRT Engine • v0.1"}
+        {collapsed ? "v0.1" : "{{ cookiecutter.project_name }} • v0.1"}
       </div>
     </aside>
   );
