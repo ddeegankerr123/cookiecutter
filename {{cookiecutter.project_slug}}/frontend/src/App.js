@@ -1,15 +1,17 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppShell from "./app/AppShell";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
-const style = { padding: "2rem", fontFamily: "sans-serif" };
-
-function App() {
+export default function App() {
   return (
-    <div style={style}>
-      <h1>Welcome to {{cookiecutter.project_name}}</h1>
-      <p>This is the React frontend scaffold.</p>
-    </div>
+    <BrowserRouter>
+      <AppShell>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </AppShell>
+    </BrowserRouter>
   );
 }
-
-export default App;
-
